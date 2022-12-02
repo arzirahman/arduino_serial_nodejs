@@ -1,0 +1,23 @@
+<button id="led-on" type="submit" name="led" value="on">Turn ON</button>
+<button id="led-off" type="submit" name="led" value="off">Turn OFF</button>
+<div id="a0"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    const a0 = document.getElementById('a0');
+    const onBtn = document.getElementById('led-on');
+    const offBtn = document.getElementById('led-off');
+
+    onBtn.addEventListener('click',()=>{
+        $.post("/", {led:"on"},()=>{});
+    });
+
+    offBtn.addEventListener('click',()=>{
+        $.post("/", {led:"off"},()=>{});
+    });
+
+    setInterval(()=>{
+        $.post("/api/a0", {key:"kampred"}, function(result){
+            a0.innerHTML = $.parseJSON(result).a0;
+        });
+    },50);
+</script>
